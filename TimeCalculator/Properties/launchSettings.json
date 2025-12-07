@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "TimeCalculator (Package)": {
+      "commandName": "MsixPackage",
+      "doNotLaunchApp": true
+    },
+    "TimeCalculator (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
