@@ -29,7 +29,7 @@ internal sealed partial class TimeCalculatorPage : DynamicListPage
 
         return [
             new ListItem(new CopyTextCommand(result)) { Title = result, Icon = new IconInfo("\U0001F554")},
-            new ListItem(new OpenUrlCommand("https://learn.microsoft.com/windows/powertoys/command-palette/adding-commands")) { Title = "Open the Command Palette documentation"},
+            //new ListItem(new OpenUrlCommand("https://learn.microsoft.com/windows/powertoys/command-palette/adding-commands")) { Title = "Open the Command Palette documentation"},
             ];
     }
 }

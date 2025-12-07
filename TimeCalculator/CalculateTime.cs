@@ -25,9 +25,11 @@ namespace TimeCalculator
             // Subtraction Mode
             if (operation == 0)
             {
+                // Converting everything to minutes for easier calculation.
                 int time1 = int.Parse(time01) + (int.Parse(time10) * 60);
                 int time2 = int.Parse(time02) + (int.Parse(time20) * 60);
                 int time = time1 - time2;
+                // Must account for oddities with AM/PM time.
                 if (ampmode)
                 {
                     if (ampm1.CompareTo("AM") == 0 && (time1 >= 720 && time1 < 780))
@@ -48,8 +50,10 @@ namespace TimeCalculator
                     }
                     time = time1 - time2;
                 }
+                // Adjusting for 24-hour wraparound if in that mode.
                 if (!mode)
                 {
+                    // Shifts time back into 0-24 range.
                     while (time < 0)
                         time += 1440;
                     if (ampmode)
@@ -62,7 +66,7 @@ namespace TimeCalculator
                         {
                             return ($"{(time / 60) + 12}:{(time % 60).ToString().PadLeft(2, '0')} AM", 1);
                         }
-                        else if (time >= 720 && time < 280)
+                        else if (time >= 720 && time < 780)
                         {
                             return ($"{(time / 60)}:{(time % 60).ToString().PadLeft(2, '0')} PM", 1);
                         }
@@ -71,8 +75,9 @@ namespace TimeCalculator
                             return ($"{time / 60}:{(time % 60).ToString().PadLeft(2, '0')} AM", 1);
                         }
                     }
-                    //return ($"{(time / 60).ToString().PadLeft(2, '0')}:{(time % 60).ToString().PadLeft(2,'0')}", 1);
                 }
+                if (time > -60 && time < 0) // Handling negative times between 0 and -1 hour.
+                    return ($"-{((time) / 60).ToString().PadLeft(2, '0')}:{(Math.Abs(time % 60)).ToString().PadLeft(2, '0')}", 1);
                 return ($"{(time / 60).ToString().PadLeft(2, '0')}:{(time % 60).ToString().PadLeft(2, '0')}", 1);
 
             }
@@ -84,7 +89,7 @@ namespace TimeCalculator
                 int time = time1 + time2;
                 if (ampmode)
                 {
-                    if (ampm1.CompareTo("AM") == 0 && (time1 >= 720 && time2 < 780))
+                    if (ampm1.CompareTo("AM") == 0 && (time1 >= 720 && time1 < 780))
                     {
                         time1 -= 720;
                     }
@@ -92,7 +97,7 @@ namespace TimeCalculator
                     {
                         time1 += 720;
                     }
-                    if (ampm1.CompareTo("AM") == 0 && (time1 >= 720 && time2 < 780))
+                    if (ampm2.CompareTo("AM") == 0 && (time2 >= 720 && time2 < 780))
                     {
                         time2 -= 720;
                     }
@@ -104,8 +109,28 @@ namespace TimeCalculator
                 }
                 if (!mode)
                 {
+                    // Shifts time back into 0-24 range.
                     while (time >= 1440)
                         time -= 1440;
+                    if (ampmode)
+                    {
+                        if (time > 780)
+                        {
+                            return ($"{(time / 60) - 12}:{(time % 60).ToString().PadLeft(2, '0')} PM", 1);
+                        }
+                        else if (time < 60)
+                        {
+                            return ($"{(time / 60) + 12}:{(time % 60).ToString().PadLeft(2, '0')} AM", 1);
+                        }
+                        else if (time >= 720 && time < 780)
+                        {
+                            return ($"{(time / 60)}:{(time % 60).ToString().PadLeft(2, '0')} PM", 1);
+                        }
+                        else
+                        {
+                            return ($"{time / 60}:{(time % 60).ToString().PadLeft(2, '0')} AM", 1);
+                        }
+                    }
                 }
                 return ($"{((time) / 60).ToString().PadLeft(2, '0')}:{((time) % 60).ToString().PadLeft(2, '0')}", 1);
             }
