@@ -76,8 +76,14 @@ namespace TimeCalculator
                         }
                     }
                 }
-                if (time > -60 && time < 0) // Handling negative times between 0 and -1 hour.
-                    return ($"-{((time) / 60).ToString().PadLeft(2, '0')}:{(Math.Abs(time % 60)).ToString().PadLeft(2, '0')}", 1);
+                if (time < 0 && time > -60) // Handling negative times between 0 and -1 hour.
+                {
+                    return ($"-{(time / 60).ToString().PadLeft(2, '0')}:{(time % 60 == 0 ? 0 : 60 + time % 60).ToString().PadLeft(2, '0')} {time}", 1);
+                }
+                else if (time < 0)
+                {
+                    return ($"{(time / 60).ToString().PadLeft(2, '0')}:{(time % 60 == 0 ? 0 : 60 + time % 60).ToString().PadLeft(2, '0')} {time}", 1);
+                }
                 return ($"{(time / 60).ToString().PadLeft(2, '0')}:{(time % 60).ToString().PadLeft(2, '0')}", 1);
 
             }
@@ -132,7 +138,7 @@ namespace TimeCalculator
                         }
                     }
                 }
-                return ($"{((time) / 60).ToString().PadLeft(2, '0')}:{((time) % 60).ToString().PadLeft(2, '0')}", 1);
+                return ($"{(time / 60).ToString().PadLeft(2, '0')}:{(time % 60).ToString().PadLeft(2, '0')}", 1);
             }
             // Example if the string is incorrect.
             return ("<hh:mm> [am|pm] <+|-> <hh:mm> [am|pm]", 2);
