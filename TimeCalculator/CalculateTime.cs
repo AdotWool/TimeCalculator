@@ -5,11 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.CommandPalette.Extensions;
 using Microsoft.CommandPalette.Extensions.Toolkit;
-using Microsoft.UI.Xaml.Controls;
 
 namespace TimeCalculator
 {
-    internal class CalculateTime
+    internal sealed class CalculateTime
     {
         public static (string result, byte status) Calculate(string input)
         {
@@ -78,11 +77,11 @@ namespace TimeCalculator
                 }
                 if (time < 0 && time > -60) // Handling negative times between 0 and -1 hour.
                 {
-                    return ($"-{(time / 60).ToString().PadLeft(2, '0')}:{(time % 60 == 0 ? 0 : 60 + time % 60).ToString().PadLeft(2, '0')} {time}", 1);
+                    return ($"-{(time / 60).ToString().PadLeft(2, '0')}:{(time % 60 == 0 ? 0 : 60 + time % 60).ToString().PadLeft(2, '0')}", 1);
                 }
                 else if (time < 0)
                 {
-                    return ($"{(time / 60).ToString().PadLeft(2, '0')}:{(time % 60 == 0 ? 0 : 60 + time % 60).ToString().PadLeft(2, '0')} {time}", 1);
+                    return ($"{(time / 60).ToString().PadLeft(2, '0')}:{(time % 60 == 0 ? 0 : 60 + time % 60).ToString().PadLeft(2, '0')}", 1);
                 }
                 return ($"{(time / 60).ToString().PadLeft(2, '0')}:{(time % 60).ToString().PadLeft(2, '0')}", 1);
 

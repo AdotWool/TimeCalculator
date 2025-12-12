@@ -9,7 +9,7 @@ using System.Text.RegularExpressions;
 
 namespace TimeCalculator
 {
-    internal class ParseTime
+    internal sealed class ParseTime
     {
         public static (string time10, string time01, string ampm1, string time20, string time02, string ampm2, byte operation, bool mode) Parse(string input)
         {
