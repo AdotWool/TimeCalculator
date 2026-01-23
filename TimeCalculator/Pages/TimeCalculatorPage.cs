@@ -15,7 +15,7 @@ internal sealed partial class TimeCalculatorPage : DynamicListPage
     {
         Icon = new IconInfo("\U0001F550"); // Would like to replace with a different icon.
         Title = "Time Calculator";
-        Name = "Open";
+        Name = "Time Calculator";
     }
 
     public override void UpdateSearchText(string _, string newSearch) => RaiseItemsChanged();
