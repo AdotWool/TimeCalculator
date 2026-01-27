@@ -11,13 +11,12 @@ namespace TimeCalculator
 {
     internal sealed class ParseTime
     {
-        public static (string time10, string time01, string ampm1, string time20, string time02, string ampm2, byte operation, bool mode) Parse(string input)
+        public static (string time10, string time01, string ampm1, string time20, string time02, string ampm2, byte operation, byte mode) Parse(string input)
         {
 
             string time10 = "", time01 = "", time20 = "", time02 = "", ampm1 = "", ampm2 = "";
-            //string ampm1, ampm2;
             byte operation = 3;
-            bool mode = false;
+            byte mode = 0;
 
             if (Regex.IsMatch(input, "^\\s*(?:[01]?\\d|2[0-3]):[0-5]\\d\\s*(?:[AP][M])?\\s*[+-]\\s*(?:[01]?\\d|2[0-3]):[0-5]\\d\\s*(?:[AP][M])?\\s*(?:no\\s?wrap)?\\s*$", RegexOptions.IgnoreCase))
             {
@@ -51,7 +50,9 @@ namespace TimeCalculator
                 else
                     operation = 0;
                 if (input.Contains("no wrap") || input.Contains("nowrap"))
-                    mode = true;
+                    mode = 1;
+                else if (input.Contains("minute"))
+                    mode = 2;
             }
 
             return (time10, time01, ampm1, time20, time02, ampm2, operation, mode);
