@@ -96,7 +96,7 @@ namespace TimeCalculator
                 int time = time1 + time2;
                 if (ampmode)
                 {
-                    if (ampm1.Equals("AM", StringComparison.Ordinal)&& (time1 >= 720 && time1 < 780))
+                    if (ampm1.Equals("AM", StringComparison.Ordinal) && (time1 >= 720 && time1 < 780))
                     {
                         time1 -= 720;
                     }

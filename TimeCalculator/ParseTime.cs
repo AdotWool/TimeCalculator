@@ -54,8 +54,25 @@ namespace TimeCalculator
                 else if (input.Contains("minute"))
                     mode = 2;
             }
+            else if (Regex.IsMatch(input, "^\\s*[0-5]\\d:[0-5]\\d\\s*[+-]\\s*[0-5]\\d:[0-5]\\d.*$", RegexOptions.IgnoreCase))
+            {
+                string[] times = Regex.Matches(input, "[0-5]\\d:[0-5]\\d", RegexOptions.IgnoreCase).Cast<Match>().Select(m => m.Value).ToArray();
+                time10 = times[0].Split(':')[0];
+                time01 = times[0].Split(':')[1];
+                time20 = times[1].Split(':')[0];
+                time02 = times[1].Split(':')[1];
+                if (input.Contains('+'))
+                    operation = 1;
+                else
+                    operation = 0;
+                //if (input.Contains("no wrap") || input.Contains("nowrap"))
+                //    mode = 1;
+                mode = 2;
+                ampm1 = "";
+                ampm2 = "";
+            }
 
-            return (time10, time01, ampm1, time20, time02, ampm2, operation, mode);
+                return (time10, time01, ampm1, time20, time02, ampm2, operation, mode);
         }
     }
 }

@@ -25,11 +25,10 @@ internal sealed partial class TimeCalculatorPage : DynamicListPage
     {
         // Use SearchText to pull user input.
         // Regex created mostly with Microsoft Copilot
-        string result = CalculateTime.Calculate(SearchText).result;
+        (string result, byte status) calc = CalculateTime.Calculate(SearchText);
 
         return [
-            new ListItem(new CopyTextCommand(result)) { Title = result, Icon = new IconInfo("\U0001F554")},
-            //new ListItem(new OpenUrlCommand("https://learn.microsoft.com/windows/powertoys/command-palette/adding-commands")) { Title = "Open the Command Palette documentation"},
-            ];
+            new ListItem(calc.status == 1 ? new CopyTextCommand(calc.result) : new NoOpCommand()) { Title = calc.result, Icon = new IconInfo("\U0001F554")},
+        ];
     }
 }
